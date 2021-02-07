@@ -2,9 +2,7 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 const themes = [
-  "apage",
   "class",
-  "classy",
   "elegant",
   "eloquent",
   "even",
