@@ -171,10 +171,11 @@ const CreateResumeForm = () => {
 
   const handleGenerateResume = async () => {
     // TODO Call rest api to fetch resume pdf
+    console.log(process.env.REACT_APP_SERVER_URL);
     try {
       const { data } = await axios({
         method: "post",
-        url: `http://localhost:8000/`,
+        url: process.env.REACT_APP_SERVER_URL,
         data: {
           resumeData: formData,
         },
@@ -189,6 +190,7 @@ const CreateResumeForm = () => {
       link.download = `resume.pdf`;
       link.click();
     } catch (err) {
+      toast.error("😢 Error generating pdf!");
       setError("Failed to generate PDF!");
     }
   };
