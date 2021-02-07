@@ -11,6 +11,7 @@ export const createResume = /* GraphQL */ `
       basics {
         name
         label
+        picture
         email
         phone
         website
@@ -21,6 +22,11 @@ export const createResume = /* GraphQL */ `
           region
           postalCode
           countryCode
+        }
+        profiles {
+          network
+          url
+          username
         }
       }
       work {
@@ -75,6 +81,9 @@ export const createResume = /* GraphQL */ `
       references {
         name
         reference
+      }
+      meta {
+        theme
       }
       createdAt
       updatedAt
@@ -92,6 +101,7 @@ export const updateResume = /* GraphQL */ `
       basics {
         name
         label
+        picture
         email
         phone
         website
@@ -102,6 +112,11 @@ export const updateResume = /* GraphQL */ `
           region
           postalCode
           countryCode
+        }
+        profiles {
+          network
+          url
+          username
         }
       }
       work {
@@ -156,6 +171,9 @@ export const updateResume = /* GraphQL */ `
       references {
         name
         reference
+      }
+      meta {
+        theme
       }
       createdAt
       updatedAt
@@ -173,6 +191,7 @@ export const deleteResume = /* GraphQL */ `
       basics {
         name
         label
+        picture
         email
         phone
         website
@@ -183,6 +202,11 @@ export const deleteResume = /* GraphQL */ `
           region
           postalCode
           countryCode
+        }
+        profiles {
+          network
+          url
+          username
         }
       }
       work {
@@ -237,6 +261,9 @@ export const deleteResume = /* GraphQL */ `
       references {
         name
         reference
+      }
+      meta {
+        theme
       }
       createdAt
       updatedAt

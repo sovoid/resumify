@@ -1,7 +1,8 @@
-import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
+import { Auth, API, graphqlOperation } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { Form, Button, Card, Col, Alert, Tabs, Tab } from "react-bootstrap";
 import _ from "lodash";
 import initialFormData from "./data/resume";
@@ -20,42 +21,33 @@ import { createResume, updateResume } from "../graphql/mutations";
 
 const CreateResumeForm = () => {
   const [formData, setFormData] = useState(initialFormData);
-  const [meta, setMeta] = useState({});
   const [error, setError] = useState(``);
 
   useEffect(() => {
+    const fetchResume = async () => {
+      // Get username of the current authenticated user
+      const { username } = await Auth.currentAuthenticatedUser();
+
+      try {
+        // Fetch existing resume data for current authenticated user
+        const resumeData = await API.graphql(graphqlOperation(listResumes), {
+          filter: { owner: username },
+          limit: 1,
+        });
+
+        // If it exists, use that data for initial form else use the default initial value
+        if (resumeData.data.listResumes.items.length) {
+          const fetchedFormData = resumeData.data.listResumes.items[0];
+          setFormData(fetchedFormData);
+          toast("🎊 Restored details from database!");
+        }
+      } catch (err) {
+        toast.error("😢 Error restoring details from database!");
+      }
+    };
+
     fetchResume();
   }, []);
-
-  const fetchResume = async () => {
-    // Get username of the current authenticated user
-    const { username } = await Auth.currentAuthenticatedUser();
-
-    // Fetch existing resume data for current authenticated user
-    const resumeData = await API.graphql(graphqlOperation(listResumes), {
-      filter: { username },
-      limit: 1,
-    });
-
-    // If it exists, use that data for initial form else use the default initial value
-    if (resumeData.data.listResumes.items.length) {
-      const {
-        id,
-        createdAt,
-        updatedAt,
-        owner,
-        ...rest
-      } = resumeData.data.listResumes.items[0];
-      setFormData(rest);
-      // Set the metadata
-      setMeta({
-        id,
-        createdAt,
-        updatedAt,
-        owner,
-      });
-    }
-  };
 
   /**
    *
@@ -179,7 +171,6 @@ const CreateResumeForm = () => {
 
   const handleGenerateResume = async () => {
     // TODO Call rest api to fetch resume pdf
-    console.log(JSON.stringify(formData));
     try {
       const { data } = await axios({
         method: "post",
@@ -205,22 +196,31 @@ const CreateResumeForm = () => {
   const handleSaveResume = async () => {
     // If resume is previously generated,
     // just update it
-    if (meta?.id) {
-      await API.graphql(
-        graphqlOperation(updateResume, {
-          input: formData,
-          condition: {
-            id: meta.id,
-          },
-        })
-      );
-    } else {
-      // Else create a new resume for the current user
-      await API.graphql(
-        graphqlOperation(createResume, {
-          input: formData,
-        })
-      );
+    try {
+      if (formData?.id) {
+        const { id, createdAt, updatedAt, owner, ...rest } = formData;
+
+        await API.graphql(
+          graphqlOperation(updateResume, {
+            input: {
+              id,
+              ...rest,
+            },
+          })
+        );
+      } else {
+        // Else create a new resume for the current user
+        await API.graphql(
+          graphqlOperation(createResume, {
+            input: {
+              ...formData,
+            },
+          })
+        );
+        toast("🥳 Saved details to database!");
+      }
+    } catch (err) {
+      toast.error("🤷‍♂️ Failed to save details to the database!");
     }
   };
 
