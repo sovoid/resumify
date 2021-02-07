@@ -103,10 +103,9 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
       <Form.Group>
         <Form.Label>GPA</Form.Label>
         <Form.Control
-          type="number"
+          type="text"
           name="gpa"
           onChange={(e) => updateEducationData(index, "gpa", e.target.value)}
-          step="0.01"
           value={gpa}
           required
         />
@@ -117,9 +116,13 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
           as="textarea"
           name="courses"
           onChange={(e) =>
-            updateEducationData(index, "courses", e.target.value)
+            updateEducationData(
+              index,
+              "courses",
+              e.target.value.replace(/\r/g, "").split("\n")
+            )
           }
-          value={courses}
+          value={courses.join("\n")}
           required
         />
       </Form.Group>
@@ -141,8 +144,8 @@ EducationFormComponent.propTypes = {
     studyType: PropTypes.string,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
-    gpa: PropTypes.number,
-    courses: PropTypes.string,
+    gpa: PropTypes.string,
+    courses: PropTypes.arrayOf(PropTypes.string),
   }),
   formData: PropTypes.object,
   setFormData: PropTypes.func,
