@@ -1,8 +1,9 @@
 import React from "react";
 import { Form, Col, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
+import _ from "lodash";
 
-const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
+const VolunteerFormComponent = ({ index, data, formData, setFormData }) => {
   const {
     organization,
     position,
@@ -12,6 +13,33 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
     summary,
     highlights,
   } = data;
+
+  /**
+   *
+   * @param {Number} idx Index #
+   * @param {String} fieldName Name of the field
+   * @param {String} value New value for the field
+   */
+  const updateVolunteeringData = (idx, fieldName, value) => {
+    formData.volunteer[idx] = {
+      ...formData.volunteer[idx],
+      [fieldName]: value,
+    };
+    setFormData({
+      ..._.set(formData, "volunteer", formData.volunteer),
+    });
+  };
+
+  const handleRemoveVolunteering = (idx) => {
+    formData.volunteer = _.concat(
+      _.slice(formData.volunteer, 0, idx),
+      _.slice(formData.volunteer, idx + 1)
+    );
+    setFormData({
+      ...formData,
+      volunteer: formData.volunteer,
+    });
+  };
 
   return (
     <div className="my-3">
@@ -26,7 +54,7 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
           type="text"
           name="organization"
           value={organization}
-          onChange={(e) => onChange(index, "organization", e.target.value)}
+          onChange={(e) => updateVolunteeringData(index, "organization", e.target.value)}
           required
         />
       </Form.Group>
@@ -36,7 +64,7 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
           type="text"
           name="position"
           value={position}
-          onChange={(e) => onChange(index, "position", e.target.value)}
+          onChange={(e) => updateVolunteeringData(index, "position", e.target.value)}
           required
         />
       </Form.Group>
@@ -45,7 +73,7 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
         <Form.Control
           type="text"
           name="website"
-          onChange={(e) => onChange(index, "website", e.target.value)}
+          onChange={(e) => updateVolunteeringData(index, "website", e.target.value)}
           value={website}
         />
       </Form.Group>
@@ -55,7 +83,7 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
           <Form.Control
             type="date"
             name="startDate"
-            onChange={(e) => onChange(index, "startDate", e.target.value)}
+            onChange={(e) => updateVolunteeringData(index, "startDate", e.target.value)}
             value={startDate}
             required
           />
@@ -65,7 +93,7 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
           <Form.Control
             type="date"
             name="endDate"
-            onChange={(e) => onChange(index, "endDate", e.target.value)}
+            onChange={(e) => updateVolunteeringData(index, "endDate", e.target.value)}
             value={endDate}
           />
         </Form.Group>
@@ -75,7 +103,7 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
         <Form.Control
           type="text"
           name="workSummary"
-          onChange={(e) => onChange(index, "summary", e.target.value)}
+          onChange={(e) => updateVolunteeringData(index, "summary", e.target.value)}
           value={summary}
           required
         />
@@ -86,7 +114,7 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
           as="textarea"
           name="highlights"
           onChange={(e) =>
-            onChange(
+            updateVolunteeringData(
               index,
               "highlights",
               e.target.value.replace(/\r/g, "").split("\n")
@@ -97,7 +125,7 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
         />
       </Form.Group>
       <div className="text-center">
-        <Button variant="danger" onClick={() => handleRemove(index)}>
+        <Button variant="danger" onClick={() => handleRemoveVolunteering(index)}>
           Remove
         </Button>
       </div>
@@ -117,8 +145,8 @@ VolunteerFormComponent.propTypes = {
     summary: PropTypes.string,
     highlights: PropTypes.arrayOf(PropTypes.string),
   }),
-  onChange: PropTypes.func,
-  handleRemove: PropTypes.func,
+  formData: PropTypes.object,
+  setFormData: PropTypes.func,
 };
 
 export default VolunteerFormComponent;

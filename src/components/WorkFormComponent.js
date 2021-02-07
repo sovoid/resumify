@@ -1,8 +1,14 @@
 import React from "react";
 import { Form, Col, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
+import _ from "lodash";
 
-const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
+const WorkFormComponent = ({
+  index,
+  data,
+  formData,
+  setFormData,
+}) => {
   const {
     company,
     position,
@@ -12,6 +18,33 @@ const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
     summary,
     highlights,
   } = data;
+
+  /**
+   *
+   * @param {Number} idx Index # of the work
+   * @param {String} fieldName Name of the field
+   * @param {String} value New value for the field
+   */
+  const updateWorkData = (idx, fieldName, value) => {
+    formData.work[idx] = {
+      ...formData.work[idx],
+      [fieldName]: value,
+    };
+    setFormData({
+      ..._.set(formData, "work", formData.work),
+    });
+  };
+
+  const handleRemoveWork = (idx) => {
+    formData.work = _.concat(
+      _.slice(formData.work, 0, idx),
+      _.slice(formData.work, idx + 1)
+    );
+    setFormData({
+      ...formData,
+      work: formData.work,
+    });
+  };
 
   return (
     <div className="my-3">
@@ -26,7 +59,7 @@ const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
           type="text"
           name="company"
           value={company}
-          onChange={(e) => onChange(index, "company", e.target.value)}
+          onChange={(e) => updateWorkData(index, "company", e.target.value)}
           required
         />
       </Form.Group>
@@ -36,7 +69,7 @@ const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
           type="text"
           name="position"
           value={position}
-          onChange={(e) => onChange(index, "position", e.target.value)}
+          onChange={(e) => updateWorkData(index, "position", e.target.value)}
           required
         />
       </Form.Group>
@@ -45,7 +78,7 @@ const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
         <Form.Control
           type="text"
           name="website"
-          onChange={(e) => onChange(index, "website", e.target.value)}
+          onChange={(e) => updateWorkData(index, "website", e.target.value)}
           value={website}
         />
       </Form.Group>
@@ -55,7 +88,7 @@ const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
           <Form.Control
             type="date"
             name="startDate"
-            onChange={(e) => onChange(index, "startDate", e.target.value)}
+            onChange={(e) => updateWorkData(index, "startDate", e.target.value)}
             value={startDate}
             required
           />
@@ -65,7 +98,7 @@ const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
           <Form.Control
             type="date"
             name="endDate"
-            onChange={(e) => onChange(index, "endDate", e.target.value)}
+            onChange={(e) => updateWorkData(index, "endDate", e.target.value)}
             value={endDate}
           />
         </Form.Group>
@@ -75,7 +108,7 @@ const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
         <Form.Control
           type="text"
           name="workSummary"
-          onChange={(e) => onChange(index, "summary", e.target.value)}
+          onChange={(e) => updateWorkData(index, "summary", e.target.value)}
           value={summary}
           required
         />
@@ -86,7 +119,7 @@ const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
           as="textarea"
           name="highlights"
           onChange={(e) =>
-            onChange(
+            updateWorkData(
               index,
               "highlights",
               e.target.value.replace(/\r/g, "").split("\n")
@@ -97,7 +130,7 @@ const WorkFormComponent = ({ onChange, handleRemove, index, data }) => {
         />
       </Form.Group>
       <div className="text-center">
-        <Button variant="danger" onClick={() => handleRemove(index)}>
+        <Button variant="danger" onClick={() => handleRemoveWork(index)}>
           Remove
         </Button>
       </div>
@@ -117,8 +150,8 @@ WorkFormComponent.propTypes = {
     summary: PropTypes.string,
     highlights: PropTypes.arrayOf(PropTypes.string),
   }),
-  onChange: PropTypes.func,
-  handleRemove: PropTypes.func,
+  formData: PropTypes.object,
+  setFormData: PropTypes.func
 };
 
 export default WorkFormComponent;
