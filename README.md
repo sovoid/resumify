@@ -10,7 +10,7 @@ Resumify provides you with a user-friendly dashboard, beautiful designs and real
 
 ## Themes
 
-Resumify currently supports \_ unique design templates with more extensibility and features to come in the near future!
+Resumify currently supports 12 unique design templates with more extensibility and features to come in the near future!
 
 ### 1. Class
 
@@ -92,9 +92,10 @@ The theme of our project idea is _Productivity_. We aim to reduce the manual req
 
 Open-source is what drives Resumify. This project would not have been possible without these tools and technologies:
 
-- _Frontend:_ ReactJS
-- _Backend:_ AWS-Amplify, Express
+- _Frontend:_ ReactJS, React Bootstrap
+- _Backend:_ AWS Amplify, Express, Puppeteer
 - _Version Control:_ Git and Github
+- _IDE:_ VS Code
 
 ## Features
 
