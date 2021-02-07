@@ -85,8 +85,14 @@ const VolunteerFormComponent = ({ onChange, handleRemove, index, data }) => {
         <Form.Control
           as="textarea"
           name="highlights"
-          onChange={(e) => onChange(index, "highlights", e.target.value)}
-          value={highlights}
+          onChange={(e) =>
+            onChange(
+              index,
+              "highlights",
+              e.target.value.replace(/\r/g, "").split("\n")
+            )
+          }
+          value={highlights.join("\n")}
           required
         />
       </Form.Group>
@@ -109,7 +115,7 @@ VolunteerFormComponent.propTypes = {
     startDate: PropTypes.string,
     endDate: PropTypes.string,
     summary: PropTypes.string,
-    highlights: PropTypes.string,
+    highlights: PropTypes.arrayOf(PropTypes.string),
   }),
   onChange: PropTypes.func,
   handleRemove: PropTypes.func,

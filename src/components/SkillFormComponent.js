@@ -61,8 +61,14 @@ const SkillFormComponent = ({ data, index, formData, setFormData }) => {
         <Form.Control
           as="textarea"
           name="keywords"
-          value={keywords}
-          onChange={(e) => updateSkillData(index, "keywords", e.target.value)}
+          value={keywords.join("\n")}
+          onChange={(e) =>
+            updateSkillData(
+              index,
+              "keywords",
+              e.target.value.replace(/\r/g, "").split("\n")
+            )
+          }
           required
         />
       </Form.Group>
@@ -81,7 +87,7 @@ SkillFormComponent.propTypes = {
   data: PropTypes.exact({
     name: PropTypes.string,
     level: PropTypes.string,
-    keywords: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
   }),
 };
 

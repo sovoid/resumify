@@ -1,7 +1,8 @@
 import Amplify, { Auth, API, graphqlOperation } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Form, Button, Card, Col, Alert } from "react-bootstrap";
+import { Form, Button, Card, Col, Alert, Tabs } from "react-bootstrap";
 import _ from "lodash";
 import initialFormData from "./data/resume";
 import AwardFormComponent from "./AwardFormComponent";
@@ -91,7 +92,7 @@ const CreateResumeForm = () => {
       startDate: "",
       endDate: "",
       summary: "",
-      highlights: "",
+      highlights: [],
     });
     setFormData({
       ...formData,
@@ -134,7 +135,7 @@ const CreateResumeForm = () => {
       startDate: "",
       endDate: "",
       summary: "",
-      highlights: "",
+      highlights: [],
     });
     setFormData({
       ...formData,
@@ -160,8 +161,8 @@ const CreateResumeForm = () => {
       studyType: "",
       startDate: "",
       endDate: "",
-      gpa: 3,
-      courses: "",
+      gpa: "3",
+      courses: [],
     });
     setFormData({
       ...formData,
@@ -185,8 +186,8 @@ const CreateResumeForm = () => {
   const handleAddSkill = () => {
     formData.skills = _.concat(formData.skills, {
       name: "",
-      level: "",
-      keywords: "",
+      level: "Master",
+      keywords: [],
     });
     setFormData({
       ...formData,
@@ -197,7 +198,7 @@ const CreateResumeForm = () => {
   const handleAddLanguage = () => {
     formData.languages = _.concat(formData.languages, {
       language: "",
-      fluency: "",
+      fluency: "Fluent",
     });
     setFormData({
       ...formData,
@@ -230,20 +231,40 @@ const CreateResumeForm = () => {
     });
   };
 
-  const handleGenerateResume = () => {
+  const handleGenerateResume = async () => {
     // TODO Call rest api to fetch resume pdf
     console.log(JSON.stringify(formData));
+    try {
+      const { data } = await axios({
+        method: "post",
+        url: `http://localhost:8000/`,
+        data: {
+          resumeData: formData,
+        },
+        responseType: "arraybuffer",
+        headers: {
+          Accept: "application/pdf"
+        },
+      });
+      const blob = new Blob([data], { type: "application/pdf" });
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `resume.pdf`;
+      link.click();
+    } catch (err) {
+      setError("Failed to generate PDF!");
+    }
   };
 
   const handleSaveResume = async () => {
     // If resume is previously generated,
     // just update it
-    if (setMeta?.id) {
+    if (meta?.id) {
       await API.graphql(
         graphqlOperation(updateResume, {
           input: formData,
           condition: {
-            id: setMeta.id,
+            id: meta.id,
           },
         })
       );
@@ -298,6 +319,17 @@ const CreateResumeForm = () => {
               />
             </Form.Group>
             <Form.Group>
+              <Form.Label>Website</Form.Label>
+              <Form.Control
+                type="text"
+                name="website"
+                value={formData.basics.website}
+                onChange={(e) =>
+                  updateFormData("basics.website", e.target.value)
+                }
+              />
+            </Form.Group>
+            <Form.Group>
               <Form.Label>Mobile</Form.Label>
               <Form.Control
                 type="tel"
@@ -349,6 +381,20 @@ const CreateResumeForm = () => {
                   required
                 />
               </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Label>Region</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="region"
+                  value={formData.basics.location.region}
+                  onChange={(e) =>
+                    updateFormData("basics.location.region", e.target.value)
+                  }
+                  required
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
               <Form.Group as={Col}>
                 <Form.Label>Country Code</Form.Label>
                 <Form.Control
