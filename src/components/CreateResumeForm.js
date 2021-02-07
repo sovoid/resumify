@@ -1,9 +1,16 @@
 import { Auth, API, graphqlOperation } from "aws-amplify";
-import { withAuthenticator } from "@aws-amplify/ui-react";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Form, Button, Card, Col, Alert, Tabs, Tab } from "react-bootstrap";
+import {
+  Modal,
+  Form,
+  Button,
+  Card,
+  Col,
+  Alert,
+  Tabs,
+  Tab,
+} from "react-bootstrap";
 import _ from "lodash";
 import initialFormData from "./data/resume";
 import AwardFormComponent from "./AwardFormComponent";
@@ -16,17 +23,24 @@ import ThemeFormComponent from "./ThemeFormComponent";
 import VolunteerFormComponent from "./VolunteerFormComponent";
 import WorkFormComponent from "./WorkFormComponent";
 
+import getPDF from "../api/get-pdf";
 import { listResumes } from "../graphql/queries";
 import { createResume, updateResume } from "../graphql/mutations";
+import viewSDKClient from "../helpers/adobe-sdk";
 
 const CreateResumeForm = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [error, setError] = useState(``);
+  const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
     const fetchResume = async () => {
       // Get username of the current authenticated user
       const { username } = await Auth.currentAuthenticatedUser();
+
+      if (!username) {
+        return;
+      }
 
       try {
         // Fetch existing resume data for current authenticated user
@@ -170,21 +184,8 @@ const CreateResumeForm = () => {
   };
 
   const handleGenerateResume = async () => {
-    // TODO Call rest api to fetch resume pdf
-    console.log(process.env.REACT_APP_SERVER_URL);
     try {
-      const { data } = await axios({
-        method: "post",
-        url: process.env.REACT_APP_SERVER_URL,
-        data: {
-          resumeData: formData,
-        },
-        responseType: "arraybuffer",
-        headers: {
-          Accept: "application/pdf",
-        },
-      });
-      const blob = new Blob([data], { type: "application/pdf" });
+      const blob = await getPDF(formData);
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = `resume.pdf`;
@@ -226,6 +227,28 @@ const CreateResumeForm = () => {
     }
   };
 
+  const handleGeneratePreview = async () => {
+    try {
+      // We use closure here to register form data for the file promise
+      const getFilePromise = getPDF(formData);
+
+      setShowPreview(true);
+      await viewSDKClient.ready();
+      viewSDKClient.previewFileUsingFilePromise(
+        "previewContainer",
+        getFilePromise,
+        "resume.pdf",
+        {
+          embedMode: "SIZED_CONTAINER",
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleClosePreview = () => setShowPreview(false);
+
   return (
     <>
       <Card>
@@ -238,6 +261,10 @@ const CreateResumeForm = () => {
             {` `}
             <Button variant="dark" onClick={handleGenerateResume}>
               Generate
+            </Button>
+            {` `}
+            <Button variant="warning" onClick={handleGeneratePreview}>
+              Preview
             </Button>
           </div>
           <ThemeFormComponent formData={formData} setFormData={setFormData} />
@@ -528,10 +555,26 @@ const CreateResumeForm = () => {
               </Tab>
             </Tabs>
           </Form>
+          <Modal show={showPreview} onHide={handleClosePreview}>
+            <Modal.Header closeButton>
+              <Modal.Title>Preview</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div id="previewContainer" className="w-100"></div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClosePreview}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleGenerateResume}>
+                Generate
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Card.Body>
       </Card>
     </>
   );
 };
 
-export default withAuthenticator(CreateResumeForm);
+export default CreateResumeForm;

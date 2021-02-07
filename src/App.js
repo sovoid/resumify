@@ -1,3 +1,4 @@
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Container } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
 import CreateResumeForm from "./components/CreateResumeForm";
@@ -25,4 +26,6 @@ const App = () => {
   );
 };
 
-export default App;
+export default withAuthenticator(App, {
+  includeGreetings: true,
+});
