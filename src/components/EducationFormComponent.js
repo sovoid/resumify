@@ -43,7 +43,7 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
           : `Education ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Institution</Form.Label>
+        <Form.Label>Institution*</Form.Label>
         <Form.Control
           type="text"
           name="institution"
@@ -55,7 +55,7 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Major Area</Form.Label>
+        <Form.Label>Major Area*</Form.Label>
         <Form.Control
           type="text"
           name="area"
@@ -65,7 +65,7 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Degree Type</Form.Label>
+        <Form.Label>Degree Type*</Form.Label>
         <Form.Control
           type="text"
           name="studyType"
@@ -77,7 +77,7 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
       </Form.Group>
       <Form.Row>
         <Form.Group as={Col}>
-          <Form.Label>Start Date</Form.Label>
+          <Form.Label>Start Date*</Form.Label>
           <Form.Control
             type="date"
             name="startDate"
@@ -101,7 +101,7 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
         </Form.Group>
       </Form.Row>
       <Form.Group>
-        <Form.Label>GPA</Form.Label>
+        <Form.Label>GPA*</Form.Label>
         <Form.Control
           type="text"
           name="gpa"

@@ -54,7 +54,7 @@ const WorkFormComponent = ({
           : `Work ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Company</Form.Label>
+        <Form.Label>Company*</Form.Label>
         <Form.Control
           type="text"
           name="company"
@@ -64,7 +64,7 @@ const WorkFormComponent = ({
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Position</Form.Label>
+        <Form.Label>Position*</Form.Label>
         <Form.Control
           type="text"
           name="position"
@@ -74,7 +74,7 @@ const WorkFormComponent = ({
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Website</Form.Label>
+        <Form.Label>Website*</Form.Label>
         <Form.Control
           type="text"
           name="website"
@@ -84,7 +84,7 @@ const WorkFormComponent = ({
       </Form.Group>
       <Form.Row>
         <Form.Group as={Col}>
-          <Form.Label>Start Date</Form.Label>
+          <Form.Label>Start Date*</Form.Label>
           <Form.Control
             type="date"
             name="startDate"
@@ -104,7 +104,7 @@ const WorkFormComponent = ({
         </Form.Group>
       </Form.Row>
       <Form.Group>
-        <Form.Label>Work Summay</Form.Label>
+        <Form.Label>Work Summay*</Form.Label>
         <Form.Control
           type="text"
           name="workSummary"

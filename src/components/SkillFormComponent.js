@@ -33,7 +33,7 @@ const SkillFormComponent = ({ data, index, formData, setFormData }) => {
         {data.name ? data.name : `Skill ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Skill Name</Form.Label>
+        <Form.Label>Skill Name*</Form.Label>
         <Form.Control
           type="text"
           name="name"
@@ -43,7 +43,7 @@ const SkillFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Skill Level</Form.Label>
+        <Form.Label>Skill Level*</Form.Label>
         <Form.Control
           as="select"
           name="level"

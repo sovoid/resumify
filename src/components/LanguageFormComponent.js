@@ -33,7 +33,7 @@ const LanguageFormComponent = ({ data, index, formData, setFormData }) => {
         {data.language ? data.language : `Language ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Name</Form.Label>
+        <Form.Label>Name*</Form.Label>
         <Form.Control
           type="text"
           name="language"
@@ -45,7 +45,7 @@ const LanguageFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Fluency</Form.Label>
+        <Form.Label>Fluency*</Form.Label>
         <Form.Control
           as="select"
           name="fluency"

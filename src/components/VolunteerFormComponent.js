@@ -49,7 +49,7 @@ const VolunteerFormComponent = ({ index, data, formData, setFormData }) => {
           : `Volunteering ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Organization</Form.Label>
+        <Form.Label>Organization*</Form.Label>
         <Form.Control
           type="text"
           name="organization"
@@ -59,7 +59,7 @@ const VolunteerFormComponent = ({ index, data, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Position</Form.Label>
+        <Form.Label>Position*</Form.Label>
         <Form.Control
           type="text"
           name="position"
@@ -69,7 +69,7 @@ const VolunteerFormComponent = ({ index, data, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Website</Form.Label>
+        <Form.Label>Website*</Form.Label>
         <Form.Control
           type="text"
           name="website"
@@ -79,7 +79,7 @@ const VolunteerFormComponent = ({ index, data, formData, setFormData }) => {
       </Form.Group>
       <Form.Row>
         <Form.Group as={Col}>
-          <Form.Label>Start Date</Form.Label>
+          <Form.Label>Start Date*</Form.Label>
           <Form.Control
             type="date"
             name="startDate"
@@ -99,7 +99,7 @@ const VolunteerFormComponent = ({ index, data, formData, setFormData }) => {
         </Form.Group>
       </Form.Row>
       <Form.Group>
-        <Form.Label>Summary</Form.Label>
+        <Form.Label>Summary*</Form.Label>
         <Form.Control
           type="text"
           name="workSummary"

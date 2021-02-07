@@ -274,7 +274,7 @@ const CreateResumeForm = () => {
               <Tab eventKey="basics" title="Basic">
                 <h3 className="mt-2">Basic Details</h3>
                 <Form.Group>
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Name*</Form.Label>
                   <Form.Control
                     type="text"
                     name="name"
@@ -286,7 +286,7 @@ const CreateResumeForm = () => {
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Role</Form.Label>
+                  <Form.Label>Role*</Form.Label>
                   <Form.Control
                     type="text"
                     name="role"
@@ -299,7 +299,7 @@ const CreateResumeForm = () => {
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>Email*</Form.Label>
                   <Form.Control
                     type="email"
                     name="email"
@@ -323,7 +323,7 @@ const CreateResumeForm = () => {
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Mobile</Form.Label>
+                  <Form.Label>Mobile*</Form.Label>
                   <Form.Control
                     type="tel"
                     name="phone"
@@ -337,7 +337,7 @@ const CreateResumeForm = () => {
                   />
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Bio</Form.Label>
+                  <Form.Label>Bio*</Form.Label>
                   <Form.Control
                     as="textarea"
                     name="summary"
@@ -353,7 +353,7 @@ const CreateResumeForm = () => {
               <Tab eventKey="location" title="Location">
                 <h3 className="mt-2">Location Details</h3>
                 <Form.Group>
-                  <Form.Label>Address</Form.Label>
+                  <Form.Label>Address*</Form.Label>
                   <Form.Control
                     type="text"
                     name="address"
@@ -367,7 +367,7 @@ const CreateResumeForm = () => {
                 </Form.Group>
                 <Form.Row>
                   <Form.Group as={Col}>
-                    <Form.Label>City</Form.Label>
+                    <Form.Label>City*</Form.Label>
                     <Form.Control
                       type="text"
                       name="city"
@@ -379,7 +379,7 @@ const CreateResumeForm = () => {
                     />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label>Region</Form.Label>
+                    <Form.Label>Region*</Form.Label>
                     <Form.Control
                       type="text"
                       name="region"
@@ -393,7 +393,7 @@ const CreateResumeForm = () => {
                 </Form.Row>
                 <Form.Row>
                   <Form.Group as={Col}>
-                    <Form.Label>Country Code</Form.Label>
+                    <Form.Label>Country Code*</Form.Label>
                     <Form.Control
                       type="text"
                       name="countryCode"
@@ -408,7 +408,7 @@ const CreateResumeForm = () => {
                     />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Label>Postal Code</Form.Label>
+                    <Form.Label>Postal Code*</Form.Label>
                     <Form.Control
                       type="text"
                       name="postalCode"

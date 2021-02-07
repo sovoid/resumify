@@ -33,7 +33,7 @@ const PublicationFormComponent = ({ data, index, formData, setFormData }) => {
         {data.name ? data.name : `Publication ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Name of the Publication</Form.Label>
+        <Form.Label>Name of the Publication*</Form.Label>
         <Form.Control
           type="text"
           name="name"
@@ -43,7 +43,7 @@ const PublicationFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Name of the Publisher</Form.Label>
+        <Form.Label>Name of the Publisher*</Form.Label>
         <Form.Control
           type="text"
           name="publisher"
@@ -55,7 +55,7 @@ const PublicationFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Publication Date</Form.Label>
+        <Form.Label>Publication Date*</Form.Label>
         <Form.Control
           type="date"
           name="releaseDate"
@@ -67,7 +67,7 @@ const PublicationFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Website</Form.Label>
+        <Form.Label>Website*</Form.Label>
         <Form.Control
           type="text"
           name="website"
@@ -79,7 +79,7 @@ const PublicationFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Summary</Form.Label>
+        <Form.Label>Summary*</Form.Label>
         <Form.Control
           as="textarea"
           name="summary"

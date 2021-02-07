@@ -33,7 +33,7 @@ const ReferenceFormComponent = ({ data, index, formData, setFormData }) => {
         {data.name ? data.name : `Reference ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Name of the Referrer</Form.Label>
+        <Form.Label>Name of the Referrer*</Form.Label>
         <Form.Control
           type="text"
           name="name"
@@ -43,7 +43,7 @@ const ReferenceFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Reference</Form.Label>
+        <Form.Label>Reference*</Form.Label>
         <Form.Control
           type="text"
           name="reference"
