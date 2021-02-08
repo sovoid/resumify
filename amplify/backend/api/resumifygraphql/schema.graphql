@@ -1,11 +1,13 @@
 type Basic {
   name: String!
   label: String!
+  picture: String
   email: String!
   phone: String!
   website: String
   summary: String!
   location: Location!
+  profiles: [Profile!]
 }
 
 type Location {
@@ -78,8 +80,13 @@ type Reference {
 }
 
 type Meta {
-  username: String!
   theme: String!
+}
+
+type Profile {
+  network: String!
+  url: String!
+  username: String!
 }
 
 type Resume @model @auth(rules: [{ allow: owner }]) {

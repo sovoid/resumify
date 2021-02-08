@@ -8,6 +8,7 @@ export const getResume = /* GraphQL */ `
       basics {
         name
         label
+        picture
         email
         phone
         website
@@ -18,6 +19,11 @@ export const getResume = /* GraphQL */ `
           region
           postalCode
           countryCode
+        }
+        profiles {
+          network
+          url
+          username
         }
       }
       work {
@@ -73,6 +79,9 @@ export const getResume = /* GraphQL */ `
         name
         reference
       }
+      meta {
+        theme
+      }
       createdAt
       updatedAt
       owner
@@ -91,10 +100,23 @@ export const listResumes = /* GraphQL */ `
         basics {
           name
           label
+          picture
           email
           phone
           website
           summary
+          location {
+            address
+            city
+            region
+            postalCode
+            countryCode
+          }
+          profiles {
+            network
+            url
+            username
+          }
         }
         work {
           company
@@ -148,6 +170,9 @@ export const listResumes = /* GraphQL */ `
         references {
           name
           reference
+        }
+        meta {
+          theme
         }
         createdAt
         updatedAt

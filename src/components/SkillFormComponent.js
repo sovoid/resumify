@@ -33,7 +33,7 @@ const SkillFormComponent = ({ data, index, formData, setFormData }) => {
         {data.name ? data.name : `Skill ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Skill Name</Form.Label>
+        <Form.Label>Skill Name*</Form.Label>
         <Form.Control
           type="text"
           name="name"
@@ -43,7 +43,7 @@ const SkillFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Skill Level</Form.Label>
+        <Form.Label>Skill Level*</Form.Label>
         <Form.Control
           as="select"
           name="level"
@@ -61,8 +61,14 @@ const SkillFormComponent = ({ data, index, formData, setFormData }) => {
         <Form.Control
           as="textarea"
           name="keywords"
-          value={keywords}
-          onChange={(e) => updateSkillData(index, "keywords", e.target.value)}
+          value={keywords.join("\n")}
+          onChange={(e) =>
+            updateSkillData(
+              index,
+              "keywords",
+              e.target.value.replace(/\r/g, "").split("\n")
+            )
+          }
           required
         />
       </Form.Group>
@@ -81,7 +87,7 @@ SkillFormComponent.propTypes = {
   data: PropTypes.exact({
     name: PropTypes.string,
     level: PropTypes.string,
-    keywords: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
   }),
 };
 

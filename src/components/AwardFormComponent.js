@@ -33,7 +33,7 @@ const AwardFormComponent = ({ data, index, formData, setFormData }) => {
         {data.title ? data.title : `Award ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label>Title*</Form.Label>
         <Form.Control
           type="text"
           name="title"
@@ -43,7 +43,7 @@ const AwardFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Date</Form.Label>
+        <Form.Label>Date*</Form.Label>
         <Form.Control
           type="date"
           name="date"
@@ -53,7 +53,7 @@ const AwardFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Awarder</Form.Label>
+        <Form.Label>Awarder*</Form.Label>
         <Form.Control
           type="text"
           name="awarder"
@@ -63,7 +63,7 @@ const AwardFormComponent = ({ data, index, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Summary</Form.Label>
+        <Form.Label>Summary*</Form.Label>
         <Form.Control
           as="textarea"
           name="summary"

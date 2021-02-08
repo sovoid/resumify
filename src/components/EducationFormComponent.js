@@ -43,7 +43,7 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
           : `Education ${index + 1}`}
       </h4>
       <Form.Group>
-        <Form.Label>Institution</Form.Label>
+        <Form.Label>Institution*</Form.Label>
         <Form.Control
           type="text"
           name="institution"
@@ -55,7 +55,7 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Major Area</Form.Label>
+        <Form.Label>Major Area*</Form.Label>
         <Form.Control
           type="text"
           name="area"
@@ -65,7 +65,7 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Degree Type</Form.Label>
+        <Form.Label>Degree Type*</Form.Label>
         <Form.Control
           type="text"
           name="studyType"
@@ -77,7 +77,7 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
       </Form.Group>
       <Form.Row>
         <Form.Group as={Col}>
-          <Form.Label>Start Date</Form.Label>
+          <Form.Label>Start Date*</Form.Label>
           <Form.Control
             type="date"
             name="startDate"
@@ -101,12 +101,11 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
         </Form.Group>
       </Form.Row>
       <Form.Group>
-        <Form.Label>GPA</Form.Label>
+        <Form.Label>GPA*</Form.Label>
         <Form.Control
-          type="number"
+          type="text"
           name="gpa"
           onChange={(e) => updateEducationData(index, "gpa", e.target.value)}
-          step="0.01"
           value={gpa}
           required
         />
@@ -117,9 +116,13 @@ const EducationFormComponent = ({ index, data, formData, setFormData }) => {
           as="textarea"
           name="courses"
           onChange={(e) =>
-            updateEducationData(index, "courses", e.target.value)
+            updateEducationData(
+              index,
+              "courses",
+              e.target.value.replace(/\r/g, "").split("\n")
+            )
           }
-          value={courses}
+          value={courses.join("\n")}
           required
         />
       </Form.Group>
@@ -141,8 +144,8 @@ EducationFormComponent.propTypes = {
     studyType: PropTypes.string,
     startDate: PropTypes.string,
     endDate: PropTypes.string,
-    gpa: PropTypes.number,
-    courses: PropTypes.string,
+    gpa: PropTypes.string,
+    courses: PropTypes.arrayOf(PropTypes.string),
   }),
   formData: PropTypes.object,
   setFormData: PropTypes.func,

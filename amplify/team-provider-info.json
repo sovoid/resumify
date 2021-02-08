@@ -14,34 +14,6 @@
     "categories": {
       "auth": {
         "resumify3a6f8d4a": {}
-      },
-      "function": {
-        "resumifylayer": {
-          "deploymentBucketName": "amplify-resumify-dev-205255-deployment",
-          "s3Key": "amplify-builds/resumifylayer-build.zip"
-        }
-      }
-    },
-    "nonCFNdata": {
-      "function": {
-        "resumifylayer": {
-          "layerVersionMap": {
-            "1": {
-              "permissions": [
-                {
-                  "type": "awsAccounts",
-                  "accounts": [
-                    "644934671925"
-                  ]
-                },
-                {
-                  "type": "private"
-                }
-              ],
-              "hash": "PrUBSCIsH8BW/4X0fiURlL0Zr0lPcuDyE5LLuptHfMQ="
-            }
-          }
-        }
       }
     }
   }
