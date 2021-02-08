@@ -7,6 +7,7 @@ import initialFormData from "./data/resume";
 import AwardFormComponent from "./AwardFormComponent";
 import EducationFormComponent from "./EducationFormComponent";
 import LanguageFormComponent from "./LanguageFormComponent";
+import Loader from "./Loader";
 import PublicationFormComponent from "./PublicationFormComponent";
 import ReferenceFormComponent from "./ReferenceFormComponent";
 import SkillFormComponent from "./SkillFormComponent";
@@ -22,6 +23,7 @@ import viewSDKClient from "../helpers/adobe-sdk";
 const CreateResumeForm = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [showPreview, setShowPreview] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     const fetchResume = async () => {
@@ -175,10 +177,12 @@ const CreateResumeForm = () => {
 
   const handleGenerateResume = async () => {
     try {
+      setShowLoader(true);
       const blob = await getPDF(formData);
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = `resume.pdf`;
+      setShowLoader(false);
       toast("🥳 PDF generated successfully!");
       link.click();
     } catch (err) {
@@ -560,6 +564,7 @@ const CreateResumeForm = () => {
               </Button>
             </Modal.Footer>
           </Modal>
+          <Loader visible={showLoader} />
         </Card.Body>
       </Card>
     </>
