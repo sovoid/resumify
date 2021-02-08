@@ -1,16 +1,7 @@
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import {
-  Modal,
-  Form,
-  Button,
-  Card,
-  Col,
-  Alert,
-  Tabs,
-  Tab,
-} from "react-bootstrap";
+import { Modal, Form, Button, Card, Col, Tabs, Tab } from "react-bootstrap";
 import _ from "lodash";
 import initialFormData from "./data/resume";
 import AwardFormComponent from "./AwardFormComponent";
@@ -30,7 +21,6 @@ import viewSDKClient from "../helpers/adobe-sdk";
 
 const CreateResumeForm = () => {
   const [formData, setFormData] = useState(initialFormData);
-  const [error, setError] = useState(``);
   const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
@@ -189,10 +179,10 @@ const CreateResumeForm = () => {
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = `resume.pdf`;
+      toast("🥳 PDF generated successfully!");
       link.click();
     } catch (err) {
       toast.error("😢 Error generating pdf!");
-      setError("Failed to generate PDF!");
     }
   };
 
@@ -220,8 +210,8 @@ const CreateResumeForm = () => {
             },
           })
         );
-        toast("🥳 Saved details to database!");
       }
+      toast("🥳 Saved details to database!");
     } catch (err) {
       toast.error("🤷‍♂️ Failed to save details to the database!");
     }
@@ -268,7 +258,6 @@ const CreateResumeForm = () => {
             </Button>
           </div>
           <ThemeFormComponent formData={formData} setFormData={setFormData} />
-          {error && <Alert variant="danger">{error}</Alert>}
           <Form>
             <Tabs>
               <Tab eventKey="basics" title="Basic">
