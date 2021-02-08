@@ -1,12 +1,16 @@
+<p align="center">
+<img src="docs/logo.gif" width="100%" alt="Resumify logo">
+</p>
+
 ## Beautiful, Professional looking Résumé in Minutes
 
 It is often said,
 
 > First impression is the Last impression
 
-What it mean's for people in the modern corporate world is that your Your next job starts with your resume. It is all the more important for you to make a good first impression and Resumify let's you do this in matter of minutes. No more Latex or forcefully structured word documents. We have abstracted the complicated and made it simple so that you can focus on important things that matter.
+What it mean's for people in the modern coorporate world is that your Your next job starts with your resume. It is all the more important for you to make a good first impression and Resumify let's you do this in matter of a few minutes. No more Latex or forcefully structured word documents. We have abstracted the complicated and made it simple so that you can focus on the important.
 
-Resumify provides you with a user-friendly dashboard, beautiful designs and real-time database syncing. With a split-section layout, you get to focus your attention to areas that need work. Everything to help you grab that next offer that comes in your way
+Resumify provides you with a user-friendly dashboard, beautiful designs and real-time database syncing. With a split-section layout, you get to focus your attention to areas that need work. Everything to help you grab that next offer that comes along your way
 
 ## Themes
 
@@ -86,7 +90,7 @@ Resumify currently supports 12 unique design templates with more extensibility a
 
 ## Theme
 
-The theme of our project idea is _Productivity_. We aim to reduce the manual required in crafting the structure of an elegant resume so that you can focus on what's important...the content. The idea is to quickly bootstrap and compare resume templates or build one for your own that can serve you long way in the future.
+The theme of our project idea is _Productivity_. We aim to reduce the manual effort spent in crafting the structure of an elegant resume so that you can focus on what's important...the content. The idea is to quickly bootstrap and compare resume templates or build one for your own that can serve you long way in the future.
 
 ## Technologies Used:
 
@@ -99,15 +103,15 @@ Open-source is what drives Resumify. This project would not have been possible w
 
 ## Features
 
-✔ No more Latex or complicated word document layouts
-✔ Extensible themes
-✔ Over 10+ out-of-the-box design choices
-✔ Version controlled and synced with database
-✔ Form layout for easy section management
-✔ ATS compliant headings
-✔ Live previews
-✔ Download on the fly
-✔ Easy to use even for novices
+✔ No more Latex or complicated word document layouts  
+✔ Extensible themes  
+✔ Over 10+ out-of-the-box design choices  
+✔ Version controlled and synced with database  
+✔ Form layout for easy section management  
+✔ ATS compliant headings  
+✔ Live previews  
+✔ Download on the fly  
+✔ Easy to use even for novices  
 ✔ MFA Authentication so that your documents are private to just you
 
 and a lot more...
@@ -124,7 +128,7 @@ and a lot more...
 
 ## Repository structure
 
-This repository contains all the code to the front-end of the application. Code to the backend of the application resides here. These separation of concerns essentially allow us to evolve the frontend and the backend independent of each other.
+This repository contains all the code to the front-end of the application. Code to the backend of the application resides [here](https://github.com/und3fined-v01d/resumify-backend). These separation of concerns essentially allow us to evolve the frontend and the backend independent of each other.
 
 | S.No | Directory | Purpose                                                                                                               |
 | ---- | --------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -157,6 +161,14 @@ amplify add api
 ```
 
 6. Run the app using `npm start`
+
+## Challenges that we ran into while creating this project
+
+Both Sladyn and myself have seen the struggle students wanting to pursue higher education go through while drafting a compliant CV/resume, be it for academic needs or job applications. We wanted to abstract the nitty-gritty of crafting a resume and having properly-named headings to make them ATS compliant. We are proud of the solution that we have come up with however this wasn't without any struggles.
+
+We wanted to use Lambda triggers for our GraphQL end-points and the best way to share dependencies was to create Lambda layers. However, Lambda layers support an unpacked size of 246 MB for shared dependencies. Trying Vercel's serverless did not turn out to be fruitful either since it too just provided an abstraction behind AWS Lambda.
+
+The alternative left around for us was AWS EC2. While this initially turned out fine, serving our backend through a https was the next issue in our paths. We tried using a self-signed certificate using openssl and even tried using certbot to generate a temporary 90-day certificate so that browsers don't block the requests sent from our client to our server. This too had their own issues. Eventually however, with our persistance and will to help others, we were able to rise above all difficulties and thus Resumify materialized.
 
 ## Contributors
 
